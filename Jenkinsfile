@@ -16,3 +16,9 @@ pipeline {
             steps {
                 bat 'docker rm -f adrios12-container || exit 0'
                 bat 'docker run -d --name adrios12-container -p 8081:80 adrios12-
+                app:latest'
+            }
+        }
+    }
+}
+
