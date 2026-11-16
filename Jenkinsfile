@@ -3,18 +3,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Source code is available from GitHub'
+                checkout scm
             }
         }
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Build stage running'
+                bat 'docker build -t adrios12-app:latest .'
+                echo 'Docker image built successfully!'
             }
         }
-        stage('Test') {
+        stage('Run Docker Container') {
             steps {
-                echo 'Test stage running'
-            }
-        }
-    }
-}
+                bat 'docker rm -f adrios12-container || exit 0'
+                bat 'docker run -d --name adrios12-container -p 8081:80 adrios12-
